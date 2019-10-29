@@ -1,14 +1,28 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Home from "../pages/Home"
+import About from '../pages/About';
 
 function Header() {
   return (
-    <header style={headerStyle}>
-      <h1>TodoList</h1>
-      <Link style={linkStyle} to="/">Home</Link>
-      |
-      <Link style={linkStyle} to="/about">About</Link>
-    </header>
+    <Router>
+      <header style={headerStyle}>
+        <h1>TodoList</h1>
+        <Link style={linkStyle} to="/react_page">Home</Link>
+        |
+        <Link style={linkStyle} to="/react_page/about">About</Link>
+      </header>
+
+      <Switch>
+        <Route exact path="/react_page">
+          <Home />
+        </Route>
+
+        <Route path="/react_page/about">
+          <About />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 
