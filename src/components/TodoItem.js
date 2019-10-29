@@ -7,8 +7,13 @@ export class TodoItem extends Component {
       backgroundColor: "#f4f4f4",
       padding: '10px',
       borderBottom: '1px #ccc dotted',
+    }
+  }
+
+  getLineThrough = () => {
+    return {
       textDecoration: this.props.todoElem.completed ?
-        'line-through' : 'none'
+      'line-through' : 'none'
     }
   }
 
@@ -23,9 +28,15 @@ export class TodoItem extends Component {
       // Single braces
       <div style={ this.getStyle() }>
         <p>
-          <input type="checkbox"
-          onChange={ this.props.markComplete.bind(this, id) } /> {' '}
-          { this.props.todoElem.title }
+          <input
+            type="checkbox"
+            onChange={ this.props.markComplete.bind(this, id) }
+            checked={this.props.todoElem.completed}
+          />
+          {' '}
+          <span style= {this.getLineThrough()}>
+            {title}
+          </span>
           <button style={btnStyle} onClick={this.props.delTodo.bind(this, id)}>x</button>
         </p>
       </div>
@@ -45,7 +56,9 @@ const btnStyle = {
 
 // Prop Types
 TodoItem.propTypes = {
-  todoElem: PropTypes.object.isRequired
+  todoElem: PropTypes.object.isRequired,
+  markComplete: PropTypes.func.isRequired,
+  delTodo: PropTypes.func.isRequired
 }
 
 export default TodoItem;
