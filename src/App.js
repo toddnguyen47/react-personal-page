@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import Header from "./components/layout/Header";
 import Todos from './components/Todos'
+import AddTodo from "./components/AddTodo"
 import './App.css';
 
 /** Ref: https://www.youtube.com/watch?v=sBws8MSXN7A*/
@@ -38,14 +40,24 @@ class App extends Component {
     })});
   }
 
+  delTodo = (id) => {
+    // Filter out any IDs that does not match the passed in ID
+    // Then, set the state with the remaining IDs
+    this.setState(
+      {todos: [...this.state.todos.filter(todoElem => 
+        todoElem.id != id
+      )]});
+  }
+
   render() {
     return (
       <div className="App">
-        {/* <header className="">
-          App
-        </header> */}
-  
-        <Todos todos={this.state.todos} markComplete={ this.toggleComplete } />
+        <div className="container">
+          <Header />
+          <AddTodo />
+          <Todos todos={this.state.todos} markComplete={ this.toggleComplete }
+          delTodo={this.delTodo}/>
+        </div>
       </div>
     );
   }
